@@ -1,13 +1,13 @@
 # Binary Search Pattern 🔍
 
-## The Big Idea
-Search in **sorted** space by repeatedly dividing search range in half. Eliminates half of possibilities each step.
+## In One Sentence
+In sorted data, compare the middle item with the target and discard the half that cannot contain the answer.
 
-**Why it works**: When data is sorted, comparing with middle tells us which half contains the answer.
+Each step cuts the remaining range roughly in half. Variants can find the first or last match, but each needs a carefully chosen boundary rule.
 
 ---
 
- When to Use
+## When to Use
 - Array is **sorted** (or rotated sorted)
 - Search in **sorted space** (even if implicit)
 - Find **first/last** occurrence
@@ -74,6 +74,14 @@ vector<int> arr = {1, 3, 5, 7, 9, 11};
 search(arr, 7);  // Output: 3
 ```
 
+**Step-by-step trace** for `arr = {1, 3, 5, 7, 9, 11}`, `target = 7`:
+
+| Iteration | left | right | mid | arr[mid] | Decision |
+|-----------|------|-------|-----|----------|----------|
+| 1 | 0 | 5 | 2 | 5 | 5 < 7 → **left = 3** |
+| 2 | 3 | 5 | 4 | 9 | 9 > 7 → **right = 3** |
+| 3 | 3 | 3 | 3 | 7 | ✅ Found at index 3 |
+
 **Visual**:
 ```
 [1, 3, 5, 7, 9, 11]  target = 7
@@ -85,6 +93,10 @@ Compare mid (5) < 7, search right:
           
 Compare mid (7) == 7, found!
 ```
+
+**Key insight**: Each iteration eliminates HALF the array. With 6 elements it took only 3 steps. With 1,000,000 elements it would take only ~20 steps. That's the power of O(log n).
+
+> **Try it yourself**: Search for `target = 10` in the same array. Trace the table — notice it terminates with `left > right`. Why does that mean "not found"?
 
 ---
 
@@ -352,6 +364,18 @@ vector<int> arr = {4, 5, 6, 7, 0, 1, 2};
 Comparison:
 - Linear search: O(n)
 - Binary search: O(log n)
+
+---
+
+ After Solving, Ask Yourself
+
+For every Binary Search problem you solve, answer these on paper:
+
+1. **Which template did you use?** `left <= right` (exact match) or `left < right` (boundary find)? Could you have used the other one?
+2. **What does `left = mid + 1` vs `right = mid` mean?** Draw the array state after each iteration once.
+3. **Off-by-one check**: Change the target to a value that doesn't exist in the array. Does your code still return `-1`? Does it ever access an out-of-bounds index?
+
+> A tutor's rule: Binary search has 3 templates (`<=`, `<`, `<` with boundary). You do NOT need to memorize all 3. Pick ONE template, understand it deeply, and adapt it. Confusion comes from switching templates mid-problem.
 
 ---
 

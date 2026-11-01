@@ -1,13 +1,13 @@
 # Cyclic Sort Pattern 🔄
 
-## The Big Idea
-When array contains numbers in range [1, n], we can place each number at its **correct index** by swapping. This achieves O(n) time with O(1) space!
+## In One Sentence
+When values come from a known index range, swap each value toward the index where it belongs.
 
-**Why it works**: Each number knows where it should go: number 1 goes to index 0, number 2 to index 1, etc.
+For values from `1` to `n`, value `x` belongs at index `x - 1`. This method depends on the input range and duplicate rules; check them first, because an out-of-range value can make the index calculation invalid.
 
 ---
 
- When to Use
+## When to Use
 - Array contains numbers in a **specific range** (usually [1, n] or [0, n-1])
 - Find **missing** or **duplicate** numbers
 - Problems mention "containing integers from 1 to n"

@@ -1,13 +1,13 @@
 # DFS (Depth-First Search) - Tree Depth 🌲
 
-## The Big Idea
-Explore tree/graph by going as **deep as possible** before backtracking. Use recursion or stack.
+## In One Sentence
+DFS follows one branch as far as it can, then returns to explore another branch.
 
-**Why it works**: Recursion naturally explores depth-first by following one path completely before trying another.
+Recursion or an explicit stack can manage this process. DFS can compute values from child nodes or explore paths; it does not mean you must store every path.
 
 ---
 
- When to Use
+## When to Use
 - Find **all paths** in tree/graph
 - Calculate **path sum**
 - Find **diameter** or **height**

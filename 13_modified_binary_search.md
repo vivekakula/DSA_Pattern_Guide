@@ -1,13 +1,13 @@
 # Modified Binary Search Pattern 🎯
 
-## The Big Idea
-Apply **binary search** to problems that don't look like traditional search, but have a **monotonic property** (if condition is true at X, it's true for all values > X or < X).
+## In One Sentence
+Use a binary-search variation when a problem lets you rule out half the candidates or find a clear boundary.
 
-**Why it works**: Binary search doesn't need a sorted array - it needs a search space where you can eliminate half based on a condition.
+This chapter covers two different cases: searching a rotated sorted array, and searching possible answers such as a minimum capacity. For answer search, define a yes/no test and check that its result changes only once as the answer increases or decreases.
 
 ---
 
- When to Use
+## When to Use
 - **Search space** has monotonic property
 - **Minimize/maximize** something
 - Find **boundary** or **threshold**

@@ -2,6 +2,8 @@
 
 Quick reference guide for identifying and applying patterns.
 
+Keywords are clues, not proof that a pattern fits. Check the input constraints, required output, and edge cases before choosing an approach.
+
 ---
 
  Pattern Recognition Guide
@@ -14,33 +16,45 @@ Quick reference guide for identifying and applying patterns.
 | "overlapping intervals", "merge", "insert interval" | **Merge Intervals** |
 | "missing number", array with 1 to n | **Cyclic Sort** |
 | "reverse linked list", "reverse in groups" | **In-place Reversal** |
-| "level order", "minimum depth", tree by level | **BFS** |
-| "all paths", "path sum", tree traversal | **DFS** |
+| "level order", "minimum depth", tree by level | **BFS (Tree)** |
+| "all paths", "path sum", tree traversal | **DFS (Tree)** |
 | "sorted array", "search", "find peak" | **Binary Search** |
 | "k largest", "k smallest", "k frequent" | **Top K (Heap)** |
 | "merge k sorted", "smallest range" | **K-way Merge** |
 | "all combinations", "all subsets", "permutations" | **Backtracking** |
 | "maximum/minimum", "count ways", "longest/shortest" | **Dynamic Programming** |
 | "minimum coins", "jump game", scheduling | **Greedy** |
+| "provinces", "islands", "course schedule", "network delay" | **Graph (BFS/DFS/Topo/Dijkstra)** |
+| "prerequisites", "ordering", "dependency" | **Topological Sort** |
+| "next greater", "next warmer", "largest rectangle", "trapping water" | **Monotonic Stack** |
+| "autocomplete", "prefix", "word search in grid", "dictionary" | **Trie** |
 
 ---
 
- Time Complexity Quick Reference
+Time Complexity Quick Reference
+
+These are common costs, not guarantees for every problem using a pattern. They exclude space used to store the required output; check the specific implementation and input constraints.
 
 | Pattern | Typical Time | Typical Space |
 |---------|--------------|---------------|
 | Two Pointers | O(n) | O(1) |
-| Sliding Window | O(n) | O(k) |
+| Sliding Window | O(n) | Depends on what the window tracks |
 | Fast & Slow | O(n) | O(1) |
 | Merge Intervals | O(n log n) | O(n) |
 | Cyclic Sort | O(n) | O(1) |
-| BFS | O(n) | O(n) |
-| DFS | O(n) | O(h) |
+| BFS | O(V + E) | O(V) |
+| DFS | O(V + E) | O(V) |
 | Binary Search | O(log n) | O(1) |
 | Heap (Top K) | O(n log k) | O(k) |
 | K-way Merge | O(n log k) | O(k) |
-| Backtracking | O(2ⁿ) or O(n!) | O(n) |
-| DP | O(n²) typical | O(n) or O(n²) |
+| Backtracking | Often exponential | O(depth), excluding output |
+| DP | Depends on states and transitions | Depends on stored states |
+| Graph BFS/DFS | O(V + E) | O(V) |
+| Topological Sort | O(V + E) | O(V) |
+| Dijkstra | O((V+E) log V) | O(V) |
+| Union-Find | O(α(n)) ≈ O(1) | O(V) |
+| Monotonic Stack | O(n) | O(n) |
+| Trie | O(L) per operation | Proportional to stored characters and child links |
 
 ---
 
@@ -252,10 +266,79 @@ START: Read the problem
 - **LCA** → DFS
 
  Graph Problems
-- **Shortest Path** → BFS
-- **Connected Components** → DFS/BFS
-- **Cycle Detection** → DFS with colors
-- **Topological Sort** → DFS or Kahn's
+- **Shortest Path** → BFS (unweighted) / Dijkstra (weighted)
+- **Connected Components** → DFS/BFS + counter
+- **Cycle Detection** → DFS with color / Union-Find
+- **Topological Sort** → Kahn's Algorithm (BFS in-degree)
+- **Dynamic Connectivity** → Union-Find
+
+ Graph BFS Template
+```cpp
+vector<bool> visited(n, false);
+queue<int> q;
+visited[src] = true;
+q.push(src);
+while (!q.empty()) {
+    int node = q.front(); q.pop();
+    for (int neighbor : adj[node]) {
+        if (!visited[neighbor]) {
+            visited[neighbor] = true;
+            q.push(neighbor);
+        }
+    }
+}
+```
+
+ Topological Sort (Kahn's)
+```cpp
+vector<int> in_degree(n, 0);
+for (auto& pre : edges) { adj[pre[1]].push_back(pre[0]); in_degree[pre[0]]++; }
+queue<int> q;
+for (int i = 0; i < n; i++) if (in_degree[i] == 0) q.push(i);
+vector<int> order;
+while (!q.empty()) {
+    int node = q.front(); q.pop();
+    order.push_back(node);
+    for (int nb : adj[node]) if (--in_degree[nb] == 0) q.push(nb);
+}
+// If order.size() != n → cycle exists
+```
+
+ Monotonic Stack (Next Greater)
+```cpp
+vector<int> result(n, -1);
+stack<int> st;  // Stores INDICES
+for (int i = 0; i < n; i++) {
+    while (!st.empty() && arr[i] > arr[st.top()]) {
+        result[st.top()] = arr[i];
+        st.pop();
+    }
+    st.push(i);
+}
+```
+
+ Trie (Insert + Search)
+```cpp
+struct TrieNode { TrieNode* children[26] = {}; bool is_end = false; };
+void insert(TrieNode* root, string word) {
+    TrieNode* node = root;
+    for (char c : word) {
+        int i = c - 'a';
+        if (!node->children[i]) node->children[i] = new TrieNode();
+        node = node->children[i];
+    }
+    node->is_end = true;
+}
+bool search(TrieNode* root, string word) {
+    TrieNode* node = root;
+    for (char c : word) {
+        int i = c - 'a';
+        if (!node->children[i]) return false;
+        node = node->children[i];
+    }
+    return node->is_end;
+}
+```
 
 ---
 

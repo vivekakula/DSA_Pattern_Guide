@@ -1,13 +1,13 @@
 # BFS (Breadth-First Search) - Tree Level Order 🌳
 
-## The Big Idea
-Traverse tree **level by level** using a queue. Process all nodes at current level before moving to next level.
+## In One Sentence
+BFS visits nearby nodes before farther ones; in a tree, that means processing one level at a time.
 
-**Why it works**: Queue ensures FIFO (First In First Out) - nodes are processed in the order they were discovered.
+A queue keeps nodes in the order they were discovered. Save the queue's size before processing a level so children added now wait until the next level.
 
 ---
 
- When to Use
+## When to Use
 - Tree/graph traversal **level by level**
 - Find **shortest path** in unweighted graph
 - **Minimum depth** of tree
@@ -104,12 +104,38 @@ vector<vector<int>> level_order(TreeNode* root) {
 // Output: [[3], [9,20], [15,7]]
 ```
 
-**Visual walkthrough**:
+**Step-by-step trace**:
 ```
-Queue: [3]          Level 0: [3]
-Queue: [9, 20]      Level 1: [9, 20]
-Queue: [15, 7]      Level 2: [15, 7]
+Tree:        3
+            / \
+           9  20
+             /  \
+            15   7
+
+Iteration 1:
+  level_size = 1
+  Pop 3  → current_level = [3]
+  Push 9, push 20 → Queue: [9, 20]
+  result = [[3]]
+
+Iteration 2:
+  level_size = 2
+  Pop 9  → current_level = [9]   (no children to push)
+  Pop 20 → current_level = [9, 20]
+  Push 15, push 7 → Queue: [15, 7]
+  result = [[3], [9, 20]]
+
+Iteration 3:
+  level_size = 2
+  Pop 15 → current_level = [15]  (no children)
+  Pop 7  → current_level = [15, 7] (no children)
+  Queue empty → done
+  result = [[3], [9, 20], [15, 7]]
 ```
+
+**Key insight**: `level_size = q.size()` is captured BEFORE the inner loop. This freezes the count for the current level, so newly pushed children (next level) are not processed in this iteration.
+
+> **Try it yourself**: Add a node 4 as the left child of 9. What does the trace look like? What is the output?
 
 ---
 

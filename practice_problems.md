@@ -1,6 +1,6 @@
 # Practice Problem Set 🎯
 
-A comprehensive collection of 40+ problems covering all 16 DSA patterns. Each problem includes:
+A collection of practice problems grouped by pattern. The set covers several of the 18 pattern chapters; use the chapter practice lists for topics not included here. Problems include:
 - ✅ LeetCode link for online practice
 - 💡 3-tier hints system
 - 💻 C++ solutions with detailed explanations
@@ -12,6 +12,8 @@ A comprehensive collection of 40+ problems covering all 16 DSA patterns. Each pr
 3. Identify the pattern
 4. Implement your solution
 5. Compare with provided solutions
+
+**Interview self-review**: After solving, explain why the algorithm is correct, state its time and space costs, test boundary cases, and mention one alternative or tradeoff. Prefer clear code over typing faster.
 
 **Progress Tracking:** Check off problems as you complete them!
 
@@ -53,14 +55,14 @@ A comprehensive collection of 40+ problems covering all 16 DSA patterns. Each pr
 **Pattern**: ?  
 **LeetCode**: [#167 - Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 
-Given a **sorted** array, find two numbers that add up to a target value. Return their indices.
+Given a **sorted** array, find two numbers that add up to a target value. Return their 1-based positions, as required by LeetCode 167.
 
 ```
 Input: arr = [1, 2, 3, 4, 6], target = 6
-Output: [1, 3] (indices of 2 and 4)
+Output: [2, 4] (1-based positions of 2 and 4)
 
 Input: arr = [2, 5, 9, 11], target = 11
-Output: [0, 2] (indices of 2 and 9)
+Output: [1, 3] (1-based positions of 2 and 9)
 ```
 
 **Your task**: 
@@ -1404,7 +1406,7 @@ vector<int> twoSumSorted(vector<int>& arr, int target) {
         int current_sum = arr[left] + arr[right];
         
         if (current_sum == target) {
-            return {left, right};
+            return {left + 1, right + 1};  // LeetCode 167 uses one-based positions
         } else if (current_sum < target) {
             left++;  // Need bigger sum
         } else {
@@ -1418,10 +1420,10 @@ vector<int> twoSumSorted(vector<int>& arr, int target) {
 // Test
 int main() {
     vector<int> arr1 = {1, 2, 3, 4, 6};
-    vector<int> result1 = twoSumSorted(arr1, 6);  // [1, 3]
+    vector<int> result1 = twoSumSorted(arr1, 6);  // [2, 4]
     
     vector<int> arr2 = {2, 5, 9, 11};
-    vector<int> result2 = twoSumSorted(arr2, 11);  // [0, 2]
+    vector<int> result2 = twoSumSorted(arr2, 11);  // [1, 3]
     
     return 0;
 }

@@ -1,13 +1,13 @@
 # K-way Merge Pattern 🔀
 
-## The Big Idea
-Merge K sorted arrays/lists efficiently using a **min heap**. The heap always gives us the next smallest element across all arrays.
+## In One Sentence
+To combine several sorted lists, repeatedly take the smallest available front item.
 
-**Why it works**: Min heap of size K tracks smallest unprocessed element from each array. Extract min, add next from same array.
+A min-heap keeps one current item from each non-empty list. After taking the smallest item, add the next item from that same list.
 
 ---
 
- When to Use
+## When to Use
 - Merge **K sorted** arrays/lists
 - Find **smallest range** covering elements from K lists
 - **Kth smallest** in multiple sorted arrays

@@ -1,15 +1,24 @@
 # Dynamic Programming Pattern 💰
 
-## The Big Idea
-Break problem into **overlapping subproblems**, solve each once, and **store results** to avoid recomputation.
+## In One Sentence
+Dynamic programming (DP) saves answers to smaller problems so they can be reused instead of calculated again.
 
-**Formula**: DP = Recursion + Memoization
+For example, calculating `fib(5)` recursively repeats smaller calculations:
+```
+fib(5) = fib(4) + fib(3)
+fib(4) = fib(3) + fib(2)   ← fib(3) computed AGAIN!
+fib(3) = fib(2) + fib(1)   ← fib(2) computed AGAIN!
+```
+DP stores each needed result and reuses it. You can store results while using recursion (memoization), or fill them in an order where smaller answers are ready first (tabulation).
 
-**Why it works**: Many problems have optimal substructure (optimal solution contains optimal solutions to subproblems) and overlapping subproblems (same subproblems computed multiple times).
+> **Jargon decoded** (don't memorize, just understand):
+> - "Overlapping subproblems" = same question comes up multiple times
+> - "Optimal substructure" = the best answer to a big problem is built from best answers to smaller ones
+> - "Recurrence relation" = the formula linking big answer to smaller answers (e.g., `fib(n) = fib(n-1) + fib(n-2)`)
 
 ---
 
- When to Use
+## When to Use
 - **Optimization** problems (max/min, count ways)
 - **Overlapping subproblems**
 - **Optimal substructure**

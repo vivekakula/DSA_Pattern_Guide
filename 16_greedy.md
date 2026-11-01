@@ -1,15 +1,13 @@
 # Greedy Pattern 🤑
 
-## The Big Idea
-Make **locally optimal choice** at each step, hoping to find global optimum. Choose what looks best right now.
+## In One Sentence
+A greedy algorithm makes a best-looking choice now and does not undo it later.
 
-**When it works**: When local optimal leads to global optimal (needs proof!)
-
-**Why it's fast**: Makes one pass, no backtracking. O(n) or O(n log n).
+That can be fast, but it is not automatically correct. You need to show that the choice cannot block a better final answer; test small examples and look for counterexamples before trusting it.
 
 ---
 
- When to Use
+## When to Use
 - **Optimization** problem (max/min)
 - **Greedy choice property**: Local optimal → global optimal
 - Can **prove** greedy works
@@ -21,6 +19,25 @@ Make **locally optimal choice** at each step, hoping to find global optimum. Cho
 - "Activity selection"
 - "Interval scheduling"
 - "Jump game"
+
+---
+
+ Is Greedy Safe? (3-Question Test Before You Code)
+
+Before writing a single line of greedy code, answer these 3 questions:
+
+| # | Question | If YES | If NO |
+|---|----------|--------|-------|
+| 1 | Can you make a decision at each step **without revisiting** earlier decisions? | Greedy might work | Use DP |
+| 2 | Can you think of a **counterexample** where the greedy choice gives a wrong answer? | Use DP | Greedy likely works |
+| 3 | Is the problem asking for a **single optimal value** (not "list all solutions")? | Greedy or DP | Use Backtracking |
+
+**Classic trap**: "Minimum coins for amount 6 with coins {1, 3, 4}"  
+Greedy picks 4 → then 1+1 = 3 coins ❌  
+DP finds 3+3 = 2 coins ✅  
+→ Greedy fails because coins don't have "greedy choice property" here.
+
+Sorting by end time or choosing an extreme can be part of a correct greedy solution, but these clues do not prove the choice is safe. Check the reasoning for the specific problem.
 
 ---
 

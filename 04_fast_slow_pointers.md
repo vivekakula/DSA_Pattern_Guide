@@ -1,13 +1,13 @@
 # Fast & Slow Pointers Pattern 🐇🐢
 
-## The Big Idea
-Use two pointers moving at **different speeds** through a linked list or sequence. The fast pointer moves 2x as fast as the slow pointer.
+## In One Sentence
+Move two pointers at different speeds to find a meeting point or the middle of a sequence.
 
-**Why it works**: When there's a cycle, the fast pointer will eventually catch up to the slow pointer. For finding middle, when fast reaches end, slow is at middle.
+For a linked list, a common choice is one step for `slow` and two for `fast`. If a cycle exists, they eventually meet; if the list ends, `slow` reaches the middle when `fast` reaches the end. Other problems may use a different movement rule.
 
 ---
 
- When to Use
+## When to Use
 - **Linked list cycle** detection
 - Finding **middle** of linked list
 - Finding **start of cycle**
@@ -87,6 +87,19 @@ bool has_cycle(ListNode* head) {
 - If there's a cycle, fast will eventually catch up to slow
 - If no cycle, fast will reach the end (nullptr)
 - It's like two runners on a circular track - the faster one will lap the slower one
+
+**Step-by-step trace** for list `1 → 2 → 3 → 4 → (cycle back to 2)`:
+
+| Step | slow (value) | fast (value) | How fast moved | Equal? |
+|------|-------------|-------------|----------------|--------|
+| Start | 1 | 1 | — | Check after move |
+| 1 | 2 | 3 | 1→2→3 | No |
+| 2 | 3 | 2 | 3→4→2 (cycle!) | No |
+| 3 | 4 | 4 | 2→3→4 | ✅ Cycle detected! |
+
+**Key insight**: Fast pointer enters the cycle first. Because it moves 2x faster, it laps slow inside the cycle. They MUST meet — think of it as fast being 1 step behind slow and closing the gap by 1 each round.
+
+> **Try it yourself**: Remove the cycle (make it a straight list). Trace the table again. Where does fast end up when slow is still mid-list?
 
 ---
 
@@ -280,6 +293,18 @@ This is better than using a hash set which would take O(n) space.
 3. **Finding middle**: When fast reaches end, slow is at middle
 4. **Off by one**: For even-length lists, slow will be at start of second half
 5. **Speed ratio**: Usually 2:1, but can be adjusted for different problems
+
+---
+
+ After Solving, Ask Yourself
+
+For every problem you solve with this pattern, answer these 3 questions on paper:
+
+1. **Why fast = 2x slow?** Could it be 3x? What would change?
+2. **What is the single condition** that proves this problem needs Fast & Slow (not just one pointer)?
+3. **Edge case check**: What happens with a list of length 1? Length 2 with no cycle? Did your code handle it?
+
+> A tutor's rule: If you can't explain *why* fast moves 2 steps, you don't own this pattern yet. Write the explanation in your own words after every session.
 
 ---
 

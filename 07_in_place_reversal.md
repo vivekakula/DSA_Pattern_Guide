@@ -1,13 +1,13 @@
 # In-place Reversal of LinkedList Pattern ↩️
 
-## The Big Idea
-Reverse a linked list (or part of it) by changing pointers **in-place** without using extra space.
+## In One Sentence
+Reverse a linked list by changing each node's `next` pointer instead of building another list.
 
-**Why it works**: We iterate through the list once, reversing the direction of pointers as we go.
+Before changing a pointer, save the next node so you do not lose the rest of the list. Reversing the full list takes one pass and constant extra space.
 
 ---
 
- When to Use
+## When to Use
 - **Reverse** a linked list (whole or part)
 - Reverse **k-group** of nodes
 - Problems involving linked list **pointer manipulation**

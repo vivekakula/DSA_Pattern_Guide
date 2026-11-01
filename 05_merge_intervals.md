@@ -1,13 +1,13 @@
 # Merge Intervals Pattern 📊
 
-## The Big Idea
-When dealing with overlapping ranges or intervals, **sort them first** by start time, then merge overlapping ones.
+## In One Sentence
+Sort ranges by their start, then scan left to right and combine ranges that overlap.
 
-**Why it works**: Sorting by start time puts overlapping intervals next to each other, making them easy to merge in one pass.
+After sorting, compare each range with the last range you kept. If they overlap, extend the last range's end; otherwise, start a new range.
 
 ---
 
- When to Use
+## When to Use
 - Problems involving **overlapping ranges**
 - **Time intervals**, **meeting rooms**, **scheduling**
 - **Insert/merge intervals**

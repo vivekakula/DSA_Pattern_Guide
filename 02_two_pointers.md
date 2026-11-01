@@ -1,13 +1,13 @@
 # Two Pointers Pattern 👉👈
 
-## The Big Idea
-Instead of using nested loops (checking every pair), use two pointers moving smartly through the array.
+## In One Sentence
+Use two positions to scan the data without checking every possible pair.
 
-**Why it works**: By moving pointers based on conditions, we avoid unnecessary comparisons.
+When the data is sorted, the values at the two positions help you decide which pointer to move. For example, on a sorted array, moving the left pointer right makes its value larger. The correct movement rule depends on the problem, so do not move pointers blindly.
 
 ---
 
- When to Use
+## When to Use
 - Array or string is **sorted** (or can be sorted)
 - Need to find **pairs, triplets** that satisfy a condition
 - Need to **compare elements** from both ends
@@ -59,7 +59,7 @@ vector<int> two_sum_sorted(vector<int>& arr, int target) {
         int current_sum = arr[left] + arr[right];
         
         if (current_sum == target) {
-            return {left, right};  // Found it!
+            return {left, right};  // Return zero-based indices
         } else if (current_sum < target) {
             left++;  // Need bigger sum, move left up
         } else {
@@ -73,13 +73,25 @@ vector<int> two_sum_sorted(vector<int>& arr, int target) {
 // Example
 vector<int> arr = {1, 2, 3, 4, 6};
 int target = 6;
-vector<int> result = two_sum_sorted(arr, target);  // Output: [1, 3] (2+4=6)
+vector<int> result = two_sum_sorted(arr, target);  // Output: [1, 3] (zero-based indices)
 ```
+
+This helper returns zero-based indices. LeetCode 167 asks for one-based positions, so add 1 to both indices when adapting it to that problem.
 
 **Why it works**: 
 - If sum is too small, left pointer moves right (gets bigger numbers)
 - If sum is too large, right pointer moves left (gets smaller numbers)
 - Each step eliminates possibilities efficiently
+
+**Step-by-step trace** for `arr = {1, 2, 3, 4, 6}`, `target = 6`:
+
+| Step | left | right | arr[left] | arr[right] | sum | Decision |
+|------|------|-------|-----------|------------|-----|----------|
+| 1    | 0    | 4     | 1         | 6          | 7   | 7 > 6 → right-- |
+| 2    | 0    | 3     | 1         | 4          | 5   | 5 < 6 → left++  |
+| 3    | 1    | 3     | 2         | 4          | 6   | ✅ Found! return [1, 3] |
+
+> **Try it yourself**: Change `target = 9`. Write out the trace table on paper before running the code. What indices does it return?
 
 ---
 

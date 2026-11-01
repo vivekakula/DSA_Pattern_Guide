@@ -1,13 +1,13 @@
 # Top K Elements Pattern 🏆
 
-## The Big Idea
-Find top K largest/smallest elements efficiently using a **heap** (priority queue) of size K.
+## In One Sentence
+Use a heap to keep the best `k` candidates seen so far, without sorting every item.
 
-**Why it works**: Heap maintains K elements and removes worst element when size exceeds K. This gives O(n log k) instead of O(n log n).
+For the `k` largest values, a min-heap puts the smallest kept value on top. When the heap grows beyond `k`, remove that value. At the end, the heap contains the `k` largest values, but not necessarily in sorted order.
 
 ---
 
- When to Use
+## When to Use
 - Find **K largest** or **K smallest** elements
 - Find **K most frequent** elements
 - Find **K closest** points

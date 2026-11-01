@@ -1,15 +1,13 @@
 # Backtracking Pattern ⬅️➡️
 
-## The Big Idea
-Explore **all possibilities** by making choices, exploring consequences, then **undoing** choices (backtracking) to try other options.
+## In One Sentence
+Build a possible answer one choice at a time; when that choice is finished, undo it and try another.
 
-**Think of it as**: Try → Explore → Undo
-
-**Why it works**: Systematically explores all possible solutions by building candidates incrementally and abandoning them when they can't lead to valid solution.
+This creates a search tree of choices. Stop a branch when it forms an answer or cannot lead to one. Backtracking is useful when solutions must be listed or choices need to be explored explicitly.
 
 ---
 
- When to Use
+## When to Use
 - Generate **all** combinations/permutations
 - Find **all** solutions (not just one)
 - **Constraint satisfaction** problems
@@ -305,7 +303,7 @@ bool backtrack(vector<vector<char>>& board, string& word, int index, int row, in
     }
     
     char temp = board[row][col];
-    board[row][col] = '';  // Mark as visited
+    board[row][col] = '\0';  // Mark as visited
     
     bool found = backtrack(board, word, index + 1, row + 1, col) ||
                  backtrack(board, word, index + 1, row - 1, col) ||

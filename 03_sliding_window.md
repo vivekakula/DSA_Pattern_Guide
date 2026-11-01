@@ -1,13 +1,13 @@
 # Sliding Window Pattern 🪟
 
-## The Big Idea
-Instead of recalculating from scratch for each subarray, **slide a window** and update incrementally.
+## In One Sentence
+A window is a contiguous part of an array or string; move its edges and update what you track instead of starting over.
 
-Think of it like a window sliding across your array - you remove what's leaving and add what's entering.
+For a fixed-size window, add the new item and remove the item that left. For a variable-size window, expand or shrink it to keep a condition true. Make sure that condition gives you a reliable rule for when to move an edge.
 
 ---
 
- When to Use
+## When to Use
 - Problems about **contiguous** subarrays or substrings
 - Need to track something in a **range** that changes
 
@@ -93,6 +93,19 @@ cout << max_sum_subarray(arr, k);  // Output: 9 (5+1+3)
           [1,3,2] = 6
 ```
 
+**Step-by-step trace** for `arr = {2, 1, 5, 1, 3, 2}`, `k = 3`:
+
+| i | Element added | Element removed | window_sum | max_sum |
+|---|---------------|-----------------|------------|---------|
+| 0 | +2            | —               | 2          | —       |
+| 1 | +1            | —               | 3          | —       |
+| 2 | +5            | —               | 8          | 8       |
+| 3 | +1            | −2 (arr[0])     | 7          | 8       |
+| 4 | +3            | −1 (arr[1])     | 9          | **9**   |
+| 5 | +2            | −5 (arr[2])     | 6          | 9       |
+
+> **Try it yourself**: Change `k = 2`. Trace the table on paper — what is the new max sum?
+
 ---
 
  Template 2: Dynamic Window
@@ -159,6 +172,19 @@ cout << longest_substring_unique("pwwkew");    // Output: 3 ("wke")
    cab     length=3 ✓
     abc    duplicates! shrink...
 ```
+
+**Step-by-step trace** for `s = "abcabc"`, `left` starts at 0:
+
+| right | s[right] | char_set (before shrink) | shrink? | char_set (after) | window | max_length |
+|-------|----------|--------------------------|---------|------------------|--------|------------|
+| 0     | 'a'      | {}                       | No      | {a}              | "a"    | 1          |
+| 1     | 'b'      | {a}                      | No      | {a,b}            | "ab"   | 2          |
+| 2     | 'c'      | {a,b}                    | No      | {a,b,c}          | "abc"  | 3          |
+| 3     | 'a'      | {a,b,c}                  | Yes→left=1 | {b,c,a}       | "bca"  | 3          |
+| 4     | 'b'      | {b,c,a}                  | Yes→left=2 | {c,a,b}       | "cab"  | 3          |
+| 5     | 'c'      | {c,a,b}                  | Yes→left=3 | {a,b,c}       | "abc"  | 3          |
+
+> **Try it yourself**: Run this on `"dvdf"`. Trace the table — what is the answer and why?
 
 ---
 
